@@ -27,6 +27,12 @@ set bot01 [$ns node]
 
 set bot02 [$ns node]
       puts "bot02: [$bot02 id]"
+      
+set bot03 [$ns node]
+      puts "bot03: [$bot03 id]"
+      
+set bot04 [$ns node]
+      puts "bot04: [$bot04 id]"
 
 set router01 [$ns node]
       puts "router01: [$router01 id]"
@@ -46,6 +52,11 @@ $bot01 label "Bot1"
 $bot02 color red
 $bot02 label "Bot2"
 
+$bot03 color red
+$bot03 label "Bot3"
+
+$bot04 color red
+$bot04 label "Bot4"
 
 $user01 color green
 $user01 label "User1"
@@ -59,11 +70,13 @@ $WebServer label "Web Server"
 #Setup Connections
 #
 
-$ns duplex-link $bot01 $router01 950kb 5ms RED
-$ns duplex-link $bot02 $router01 950kb 5ms RED
-$ns duplex-link $user01 $router01 950kb 5ms RED
+$ns duplex-link $bot01 $router01 4Mb 5ms RED
+$ns duplex-link $bot02 $router01 4Mb 5ms RED
+$ns duplex-link $bot03 $router01 4Mb 5ms RED
+$ns duplex-link $bot04 $router01 4Mb 5ms RED
+$ns duplex-link $user01 $router01 4Mb 5ms RED
 
-$ns duplex-link $router01 $WebServer 950kb 5ms RED
+$ns duplex-link $router01 $WebServer 4Mb 5ms RED
 $ns duplex-link-op $router01 $WebServer color purple
 $ns duplex-link-op $router01 $WebServer label "Target Link 1"
 
@@ -81,6 +94,12 @@ $ns attach-agent $bot01 $udp_bot01
 set udp_bot02 [new Agent/UDP]
 $ns attach-agent $bot02 $udp_bot02
 
+set udp_bot03 [new Agent/UDP]
+$ns attach-agent $bot03 $udp_bot03
+
+set udp_bot04 [new Agent/UDP]
+$ns attach-agent $bot04 $udp_bot04
+
 set udp_user01 [new Agent/UDP]
 $ns attach-agent $user01 $udp_user01
 
@@ -89,13 +108,20 @@ $ns attach-agent $user01 $udp_user01
 #Setup traffic sources
 #
 set cbr_bot01 [new Application/Traffic/CBR]
-$cbr_bot01 set rate_ 500Kb
+$cbr_bot01 set rate_ 1Mb
 $cbr_bot01 attach-agent $udp_bot01
 
-
 set cbr_bot02 [new Application/Traffic/CBR]
-$cbr_bot02 set rate_ 500Kb
+$cbr_bot02 set rate_ 1Mb
 $cbr_bot02 attach-agent $udp_bot02
+
+set cbr_bot03 [new Application/Traffic/CBR]
+$cbr_bot03 set rate_ 1Mb
+$cbr_bot03 attach-agent $udp_bot03
+
+set cbr_bot04 [new Application/Traffic/CBR]
+$cbr_bot04 set rate_ 1Mb
+$cbr_bot04 attach-agent $udp_bot04
 
 set cbr_user01 [new Application/Traffic/CBR]
 $cbr_user01 set rate_ 100Kb
@@ -105,6 +131,8 @@ $cbr_user01 attach-agent $udp_user01
 #connect traffic sources to traffic destination (for CBR components, the destination is defined as a NULL component)
 $ns connect $udp_bot01 $null_WebServer
 $ns connect $udp_bot02 $null_WebServer
+$ns connect $udp_bot03 $null_WebServer
+$ns connect $udp_bot04 $null_WebServer
 $ns connect $udp_user01 $null_WebServer
 
 
@@ -115,6 +143,8 @@ $ns color 2 red
 #sets udp_bot01 and udp_bot02 traffic color to red
 $udp_bot01 set fid_ 2
 $udp_bot02 set fid_ 2
+$udp_bot03 set fid_ 2
+$udp_bot04 set fid_ 2
 
 # set udp_user01 (user) traffic color to green
 $udp_user01 set fid_ 1 
@@ -129,6 +159,8 @@ $ns set-animation-rate 3ms
 $ns at 0 "$cbr_bot01 start" 
 #start cbr_bot01 at time 0
 $ns at 0 "$cbr_bot02 start"
+$ns at 0 "$cbr_bot03 start"
+$ns at 0 "$cbr_bot04 start"
 $ns at 1 "$cbr_user01 start"
 
 $ns at 10.0 "finish"
