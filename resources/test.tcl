@@ -118,6 +118,12 @@ set bot27 [$ns node]
 set bot28 [$ns node]
       puts "bot28: [$bot28 id]"
 
+set bot29 [$ns node]
+      puts "bot29: [$bot29 id]"
+
+set bot30 [$ns node]
+      puts "bot30: [$bot30 id]"
+
 # router nodes
 set router01 [$ns node]
       puts "router01: [$router01 id]"
@@ -258,34 +264,36 @@ $WebServer label "Web Server"
 #
 
 # bot topogrophy
-$ns duplex-link $bot01 $router01 4Mb 5ms RED
-$ns duplex-link $bot02 $router01 4Mb 5ms RED
-$ns duplex-link $bot03 $router01 4Mb 5ms RED
-$ns duplex-link $bot04 $router01 4Mb 5ms RED
-$ns duplex-link $bot05 $router02 4Mb 5ms RED
-$ns duplex-link $bot06 $router02 4Mb 5ms RED
-$ns duplex-link $bot07 $router02 4Mb 5ms RED
-$ns duplex-link $bot08 $router02 4Mb 5ms RED
-$ns duplex-link $bot09 $router03 4Mb 5ms RED
-$ns duplex-link $bot10 $router03 4Mb 5ms RED
-$ns duplex-link $bot11 $router03 4Mb 5ms RED
-$ns duplex-link $bot12 $router03 4Mb 5ms RED
-$ns duplex-link $bot13 $router04 4Mb 5ms RED
-$ns duplex-link $bot14 $router04 4Mb 5ms RED
-$ns duplex-link $bot15 $router04 4Mb 5ms RED
-$ns duplex-link $bot16 $router04 4Mb 5ms RED
-$ns duplex-link $bot17 $router05 4Mb 5ms RED
-$ns duplex-link $bot18 $router05 4Mb 5ms RED
-$ns duplex-link $bot19 $router05 4Mb 5ms RED
-$ns duplex-link $bot20 $router05 4Mb 5ms RED
-$ns duplex-link $bot21 $router06 4Mb 5ms RED
-$ns duplex-link $bot22 $router06 4Mb 5ms RED
-$ns duplex-link $bot23 $router06 4Mb 5ms RED
-$ns duplex-link $bot24 $router06 4Mb 5ms RED
+$ns duplex-link $bot01 $router07 4Mb 5ms RED
+$ns duplex-link $bot02 $router07 4Mb 5ms RED
+$ns duplex-link $bot03 $router07 4Mb 5ms RED
+$ns duplex-link $bot04 $router07 4Mb 5ms RED
+$ns duplex-link $bot05 $router07 4Mb 5ms RED
+$ns duplex-link $bot06 $router07 4Mb 5ms RED
+$ns duplex-link $bot07 $router07 4Mb 5ms RED
+$ns duplex-link $bot08 $router07 4Mb 5ms RED
+$ns duplex-link $bot09 $router07 4Mb 5ms RED
+$ns duplex-link $bot10 $router07 4Mb 5ms RED
+$ns duplex-link $bot11 $router07 4Mb 5ms RED
+$ns duplex-link $bot12 $router07 4Mb 5ms RED
+$ns duplex-link $bot13 $router07 4Mb 5ms RED
+$ns duplex-link $bot14 $router07 4Mb 5ms RED
+$ns duplex-link $bot15 $router07 4Mb 5ms RED
+$ns duplex-link $bot16 $router07 4Mb 5ms RED
+$ns duplex-link $bot17 $router07 4Mb 5ms RED
+$ns duplex-link $bot18 $router07 4Mb 5ms RED
+$ns duplex-link $bot19 $router07 4Mb 5ms RED
+$ns duplex-link $bot20 $router07 4Mb 5ms RED
+$ns duplex-link $bot21 $router07 4Mb 5ms RED
+$ns duplex-link $bot22 $router07 4Mb 5ms RED
+$ns duplex-link $bot23 $router07 4Mb 5ms RED
+$ns duplex-link $bot24 $router07 4Mb 5ms RED
 $ns duplex-link $bot25 $router07 4Mb 5ms RED
 $ns duplex-link $bot26 $router07 4Mb 5ms RED
 $ns duplex-link $bot27 $router07 4Mb 5ms RED
 $ns duplex-link $bot28 $router07 4Mb 5ms RED
+$ns duplex-link $bot29 $router07 4Mb 5ms RED
+$ns duplex-link $bot30 $router07 4Mb 5ms RED
 
 
 # user topography
@@ -418,6 +426,12 @@ $ns attach-agent $bot27 $udp_bot27
 set udp_bot28 [new Agent/UDP]
 $ns attach-agent $bot28 $udp_bot28
 
+set udp_bot29 [new Agent/UDP]
+$ns attach-agent $bot29 $udp_bot29
+
+set udp_bot30 [new Agent/UDP]
+$ns attach-agent $bot30 $udp_bot30
+
 # user connections
 set udp_user01 [new Agent/UDP]
 $ns attach-agent $user01 $udp_user01
@@ -548,6 +562,14 @@ set cbr_bot28 [new Application/Traffic/CBR]
 $cbr_bot28 set rate_ 1Mb
 $cbr_bot28 attach-agent $udp_bot28
 
+set cbr_bot29 [new Application/Traffic/CBR]
+$cbr_bot29 set rate_ 1Mb
+$cbr_bot29 attach-agent $udp_bot29
+
+set cbr_bot30 [new Application/Traffic/CBR]
+$cbr_bot30 set rate_ 1Mb
+$cbr_bot30 attach-agent $udp_bot30
+
 # user traffic
 set cbr_user01 [new Application/Traffic/CBR]
 $cbr_user01 set rate_ 100Kb
@@ -595,6 +617,8 @@ $ns connect $udp_bot25 $null_WebServer
 $ns connect $udp_bot26 $null_WebServer
 $ns connect $udp_bot27 $null_WebServer
 $ns connect $udp_bot28 $null_WebServer
+$ns connect $udp_bot29 $null_WebServer
+$ns connect $udp_bot30 $null_WebServer
 
 $ns connect $udp_user01 $null_WebServer
 $ns connect $udp_user02 $null_WebServer
@@ -634,6 +658,8 @@ $udp_bot25 set fid_ 2
 $udp_bot26 set fid_ 2
 $udp_bot27 set fid_ 2
 $udp_bot28 set fid_ 2
+$udp_bot29 set fid_ 2
+$udp_bot30 set fid_ 2
 
 # set udp_user traffic color to green
 $udp_user01 set fid_ 1 
@@ -676,6 +702,8 @@ $ns at 0 "$cbr_bot25 start"
 $ns at 0 "$cbr_bot26 start"
 $ns at 0 "$cbr_bot27 start"
 $ns at 0 "$cbr_bot28 start"
+$ns at 0 "$cbr_bot29 start"
+$ns at 0 "$cbr_bot30 start"
 #start cbr_users at time 1
 $ns at 1 "$cbr_user01 start"
 $ns at 1 "$cbr_user02 start"
